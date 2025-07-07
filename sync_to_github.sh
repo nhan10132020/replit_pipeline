@@ -1,24 +1,25 @@
 #!/bin/bash
 set -e
 
-# Set up GitHub credentials
 GITHUB_REPO="https://${GH_TOKEN}@github.com/nhan10132020/replit_pipeline.git"
 
-git config --global user.email "asol@automate-solutions.net"
-git config --global user.name "CI Sync Bot"
+git config --global user.email "ci-bot@example.com"
+git config --global user.name "GitLab CI Bot"
 
-# Initialize (safe if already exists)
-git init
+# Ensure we're in a real branch
+git checkout -B main
 
-# Check if we're in detached HEAD and create main branch
-git checkout -b main || git checkout main
+# Always create a dummy file to ensure something changes
+echo "Synced at $(date)" > .sync_timestamp
+git add .sync_timestamp
 
-# Add + commit
+# Optional: add all changes, not just the dummy file
 git add .
-git commit -m "Sync changes from GitLab CI" || true
 
-# Add GitHub remote (safe if exists)
+git commit -m "Sync from GitLab CI at $(date)" || echo "No changes to commit"
+
+# Add remote safely
 git remote add github $GITHUB_REPO || true
 
-# Push to GitHub
+# Push
 git push github main --force
