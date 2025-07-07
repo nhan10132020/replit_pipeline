@@ -1,0 +1,13 @@
+stages:
+  - sync
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+# Optional: sync to GitHub via push (requires GitHub token)
+sync_to_github:
+  stage: sync
+  script:
+    - bash sync_to_github.sh
+  only:
+    - main
