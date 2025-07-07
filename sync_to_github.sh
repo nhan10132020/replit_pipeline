@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+echo ${GH_TOKEN}
+
 # Set up GitHub credentials
 GITHUB_REPO="https://${GH_TOKEN}@github.com/nhan10132020/replit_pipeline.git"
 
